@@ -23,8 +23,9 @@ if __name__ == "__main__":
                 entry['description'] = re.sub(
                     r'<.*>', '', entry['description'])
                 entry['category'] = category
-                data.append(entry)
-                if data and len(data) % 30000 == 0:
+                if len(entry['description']) != 0:
+                    data.append(entry)
+                if data and len(data) % 25000 == 0:
                     break
         print(category, len(data))
     pickle.dump(data, gzip.open(DATA_PATH, 'wb'))
