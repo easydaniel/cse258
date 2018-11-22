@@ -21,9 +21,11 @@ if __name__ == "__main__":
                 for k in set(entry.keys()) - set(feat):
                     del entry[k]
                 entry['description'] = re.sub(
-                    r'<.*>', '', entry['description'])
+                    r'(<.*>|\n|\r|\t)', '', entry['description']).strip()
+                entry['description'] = re.sub(
+                    r' +', ' ', entry['description']).strip()
                 entry['category'] = category
-                if len(entry['description']) != 0:
+                if len(entry['description']) > 20:
                     data.append(entry)
                 if data and len(data) % 25000 == 0:
                     break
